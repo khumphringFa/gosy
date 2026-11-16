@@ -11,6 +11,9 @@ import { getFooterPageLinks } from '@/lib/pages/footerLinks'
 import { getAnalyticsInjection } from '@/lib/settings/analytics'
 import { getBranding } from '@/lib/settings/branding'
 
+// CMS and booking data are fetched at runtime, not while building a container.
+export const dynamic = 'force-dynamic'
+
 const jakarta = Plus_Jakarta_Sans({
   subsets: ['latin'],
   variable: '--font-jakarta',

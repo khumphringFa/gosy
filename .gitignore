@@ -39,6 +39,10 @@ yarn-error.log*
 next-env.d.ts
 
 .env
+*.dump
+*.gpg
+rclone.conf
+client_secret*.json
 
 /media
 

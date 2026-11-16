@@ -1,0 +1,23 @@
+name: Cloud deployment checks
+on:
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: npm install -g pnpm@11.25.0
+      - run: pnpm install --frozen-lockfile
+      - run: node --test cloudflare/worker.test.mjs
+      - run: bash -n scripts/cloud-backup.sh && bash -n scripts/cloud-restore.sh
+      - run: pnpm exec vitest run tests/int/googleOAuth.int.spec.ts --config vitest.config.mts
+      - run: pnpm exec tsc --noEmit
+      - run: pnpm build
+        env:
+          PAYLOAD_SECRET: build-only-not-a-runtime-secret

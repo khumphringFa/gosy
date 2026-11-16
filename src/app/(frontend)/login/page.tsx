@@ -18,7 +18,7 @@ function LoginForm() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [showPassword, setShowPassword] = useState(false)
-  const [error, setError] = useState<string | null>(null)
+  const [error, setError] = useState<string | null>(searchParams.get('google') === 'existing' ? 'This email already has an account. Please sign in using your existing method.' : searchParams.get('google') === 'failed' ? 'Google sign-in failed. Please try again.' : null)
   const [pending, setPending] = useState(false)
 
   async function submit(event: React.FormEvent) {

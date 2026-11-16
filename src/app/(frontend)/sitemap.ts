@@ -2,9 +2,10 @@ import type { MetadataRoute } from 'next'
 
 import { getPayloadClient } from '@/lib/payload/getPayloadClient'
 
-const BASE_URL = process.env.APP_URL || 'http://localhost:3000'
+export const dynamic = 'force-dynamic'
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+  const BASE_URL = process.env.APP_URL || 'http://localhost:3000'
   const staticRoutes: MetadataRoute.Sitemap = [
     { url: `${BASE_URL}/`, changeFrequency: 'daily', priority: 1 },
     { url: `${BASE_URL}/offers`, changeFrequency: 'weekly', priority: 0.6 },
