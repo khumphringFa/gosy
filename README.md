@@ -1,5 +1,7 @@
 ## Quick Start - local setup
 
+For a managed deployment without purchasing a domain, see [GoSy Cloud deployment](DEPLOY_CLOUD.md).
+
 To spin up this template locally, follow these steps:
 
 ### Clone

@@ -72,7 +72,7 @@ export default buildConfig({
   endpoints: [searchEndpoint, suggestEndpoint, emailWebhookEndpoint, pricingQuoteEndpoint],
   jobs: {
     tasks: jobsTasks,
-    autoRun: [
+    autoRun: process.env.JOBS_SECRET ? [] : [
       {
         cron: '* * * * *',
         allQueues: true,
@@ -82,6 +82,7 @@ export default buildConfig({
   },
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || '',
+  ...(process.env.APP_URL ? { serverURL: process.env.APP_URL, csrf: [process.env.APP_URL] } : {}),
   typescript: {
     outputFile: path.resolve(dirname, 'payload-types.ts'),
   },
@@ -119,10 +120,12 @@ export default buildConfig({
               },
             },
             bucket: process.env.S3_BUCKET,
-            acl: 'private',
+            // R2 buckets are private by default and do not support S3 object ACLs.
+            ...(process.env.S3_ENDPOINT ? {} : { acl: 'private' as const }),
             disableLocalStorage: true,
             config: {
-              region: process.env.S3_REGION || undefined,
+              region: process.env.S3_REGION || (process.env.S3_ENDPOINT ? 'auto' : undefined),
+              ...(process.env.S3_ENDPOINT ? { endpoint: process.env.S3_ENDPOINT, forcePathStyle: true } : {}),
               credentials: {
                 accessKeyId: process.env.S3_ACCESS_KEY || '',
                 secretAccessKey: process.env.S3_SECRET_KEY || '',

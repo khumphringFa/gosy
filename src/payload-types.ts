@@ -202,6 +202,7 @@ export interface UserAuthOperations {
  */
 export interface User {
   id: number;
+  googleSubject?: string | null;
   name?: string | null;
   phone?: string | null;
   role: 'guest' | 'partner' | 'admin';
@@ -1292,6 +1293,7 @@ export interface PayloadMigration {
  * via the `definition` "users_select".
  */
 export interface UsersSelect<T extends boolean = true> {
+  googleSubject?: T;
   name?: T;
   phone?: T;
   role?: T;

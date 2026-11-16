@@ -11,6 +11,7 @@ export const Users: CollectionConfig = {
   slug: 'users',
   endpoints: [usersSendOtpEndpoint, usersVerifyOtpEndpoint],
   auth: {
+    cookies: { secure: process.env.APP_URL?.startsWith('https://') ?? false, sameSite: 'Lax' },
     tokenExpiration: 60 * 60 * 24 * 7,
     maxLoginAttempts: 10,
     lockTime: 10 * 60 * 1000,
@@ -55,6 +56,13 @@ export const Users: CollectionConfig = {
     admin: ({ req: { user } }) => user?.role === 'admin',
   },
   fields: [
+    {
+      name: 'googleSubject',
+      type: 'text',
+      unique: true,
+      hidden: true,
+      access: { read: () => false, create: () => false, update: () => false },
+    },
     {
       name: 'name',
       type: 'text',

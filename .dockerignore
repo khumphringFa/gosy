@@ -1,0 +1,16 @@
+.git
+node_modules
+.next
+.env
+.env.*
+!.env.example
+media
+test-results
+playwright-report
+*.pem
+*.key
+*.dump
+*.gpg
+rclone.conf
+client_secret*.json
+cloudflare/node_modules

@@ -130,15 +130,10 @@ export function AuthScreen({ mode, children }: AuthScreenProps) {
               </nav>
 
               <div className="mt-6 grid grid-cols-2 gap-3">
-                <button
-                  type="button"
-                  disabled
-                  title="Coming soon"
-                  className="inline-flex cursor-not-allowed items-center justify-center gap-2 rounded-lg border border-border bg-card py-2.5 text-sm font-semibold text-foreground opacity-60"
-                >
+                <a href="/api/google/start" className="inline-flex items-center justify-center gap-2 rounded-lg border border-border bg-card py-2.5 text-sm font-semibold text-foreground">
                   <GoogleIcon />
                   Google
-                </button>
+                </a>
                 <button
                   type="button"
                   disabled
